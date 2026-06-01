@@ -1,0 +1,51 @@
+name: Build Anki decks
+
+on:
+  push:
+    paths:
+      - "cards/**"
+      - "src/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - ".github/workflows/build-anki.yml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Validate and build .apkg
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Test builder
+        run: pytest
+
+      - name: Validate cards
+        run: cards-adhs-build validate --cards-dir cards
+
+      - name: Build Anki packages
+        run: cards-adhs-build build --cards-dir cards --out-dir dist
+
+      - name: Upload APKG artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cards_ADHS_apkg
+          path: dist/*.apkg
+          if-no-files-found: error
