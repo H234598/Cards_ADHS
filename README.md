@@ -14,12 +14,19 @@ Bei jedem Push, Pull Request oder manuellem Start über `workflow_dispatch`:
 4. Karten validieren
 5. `.apkg`-Decks bauen
 6. APKG-Ausgaben auf Existenz und Mindestgröße prüfen
-7. fertige Decks als GitHub-Actions-Artefakt hochladen
+7. APKG-Dateien unter `dist/` ins Repository zurückschreiben
+8. Release `cards-adhs-latest` mit den APKG-Dateien erstellen oder aktualisieren
+9. fertige Decks als GitHub-Actions-Artefakt hochladen
 
 Erzeugt werden:
 
 - ein `.apkg` pro Deck
 - zusätzlich `Cards_ADHS_all_decks.apkg` mit allen Decks zusammen
+
+Die Decks sind danach an zwei sichtbaren Stellen verfügbar:
+
+- im Repository unter `dist/`
+- unter `Releases` im Release `cards-adhs-latest`
 
 ## Automatisches Kartendesign
 

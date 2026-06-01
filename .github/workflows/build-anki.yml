@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -58,6 +58,50 @@ jobs:
                   raise SystemExit(f"{path} is suspiciously small ({size} bytes).")
               print(f"{path} ({size} bytes)")
           PY
+
+      - name: Commit APKG files to dist
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f dist/*.apkg
+
+          if git diff --cached --quiet; then
+            echo "dist/*.apkg is already current."
+          else
+            git commit -m "Update generated APKG decks [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Publish APKG release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="cards-adhs-latest"
+          title="Cards_ADHS latest APKG decks"
+          target="$(git rev-parse HEAD)"
+          notes_file="$(mktemp)"
+
+          {
+            echo "Automatisch gebaut aus Commit ${target}."
+            echo
+            echo "APKG-Dateien:"
+            for path in dist/*.apkg; do
+              echo "- $(basename "$path")"
+            done
+          } > "$notes_file"
+
+          git tag -f "$tag" "$target"
+          git push -f origin "refs/tags/$tag"
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "$title" --notes-file "$notes_file" --target "$target" --latest
+          else
+            gh release create "$tag" --title "$title" --notes-file "$notes_file" --target "$target" --latest
+          fi
+
+          gh release upload "$tag" dist/*.apkg --clobber
 
       - name: Upload APKG artifacts
         uses: actions/upload-artifact@v7
