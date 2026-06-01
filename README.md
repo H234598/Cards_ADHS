@@ -87,6 +87,8 @@ Für den Hauptbestand sollte das aber nicht benutzt werden. Wissenschaft ohne Qu
 ## Lokal bauen
 
 ```bash
+git clone git@github.com:H234598/Cards_ADHS.git
+cd Cards_ADHS
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -98,25 +100,8 @@ cards-adhs-build build --cards-dir cards --out-dir dist
 
 Die fertigen Decks liegen danach in `dist/`.
 
-## GitHub-Repo erzeugen und pushen
+## GitHub Actions
 
-Da der ChatGPT-GitHub-Connector hier kein neues Repo anlegen kann, kannst du dieses Projekt so hochschieben:
-
-```bash
-gh repo create H234598/Cards_ADHS --private --source=. --remote=origin --push
-```
-
-Oder, falls du das Repo vorher im Browser erstellst:
-
-```bash
-git init
-git add .
-git commit -m "Initial Anki card builder pipeline"
-git branch -M main
-git remote add origin git@github.com:H234598/Cards_ADHS.git
-git push -u origin main
-```
-
-Nach dem Push findest du die `.apkg`-Dateien unter:
+Nach jedem passenden Push findest du die `.apkg`-Dateien unter:
 
 `Actions` → letzter Workflow-Lauf → `Artifacts` → `Cards_ADHS_apkg`
