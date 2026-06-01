@@ -1,0 +1,27 @@
+deck: "ADHD & Autism & Parkinson::Practice"
+tags: [adhd, autism, parkinson, practice]
+source: "DSM-5; NICE guidelines for ADHD and Autism; Jankovic J., 2008, Parkinson's disease: clinical features and neurobiology"
+cards:
+  - id: adhd-core-symptoms
+    type: basic
+    front: |
+      What are the core symptom domains of Attention‑Deficit/Hyperactivity Disorder (ADHD)?
+    back: |
+      ADHD is characterized by two persistent symptom domains: **inattention** and **hyperactivity‑impulsivity** that cause significant impairment in multiple settings. A diagnosis requires several symptoms from one or both domains, persisting for at least six months, being maladaptive and inconsistent with developmental level.
+    tags: [adhd, symptoms]
+
+  - id: autism-core-features
+    type: basic
+    front: |
+      What are the two core diagnostic domains for autism spectrum disorder?
+    back: |
+      Autism spectrum disorder is defined by **persistent deficits in social communication and social interaction** across multiple contexts and **restricted, repetitive patterns of behavior, interests or activities**. Both domains must be present from early development and cause clinically significant impairment.
+    tags: [autism, symptoms]
+
+  - id: parkinson-dopamine
+    type: basic
+    front: |
+      Which neurotransmitter deficiency is most closely linked to the motor symptoms of Parkinson’s disease?
+    back: |
+      Parkinson’s disease is primarily associated with degeneration of dopaminergic neurons in the **substantia nigra**, leading to **dopamine deficiency** in the striatum and resulting motor symptoms such as bradykinesia, rigidity and tremor.
+    tags: [parkinson, neurobiology]
