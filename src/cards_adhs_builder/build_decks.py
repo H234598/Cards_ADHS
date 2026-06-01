@@ -17,32 +17,207 @@ CSS = """
 .card {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-size: 20px;
-  line-height: 1.45;
+  line-height: 1.55;
   text-align: left;
-  color: #111;
-  background: #fafafa;
+  color: #172026;
+  background: #edf3f2;
   padding: 1rem;
+  overflow-wrap: anywhere;
 }
-.card h1, .card h2, .card h3 { line-height: 1.2; }
-.card code { font-size: 0.9em; }
-.card blockquote {
-  border-left: 4px solid #ccc;
-  margin-left: 0;
-  padding-left: 1rem;
+
+.adhs-card {
+  box-sizing: border-box;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.35rem;
+  border: 1px solid #cbd8d6;
+  border-radius: 8px;
+  background: #fbfdfc;
+  box-shadow: 0 10px 28px rgba(23, 32, 38, 0.12);
 }
-.source {
-  color: #555;
-  font-size: 0.75em;
-  margin-top: 1.25rem;
-}
+
 .tagline {
-  color: #777;
-  font-size: 0.72em;
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.02em;
+  display: inline-block;
+  color: #315f5a;
+  background: #e0efec;
+  border: 1px solid #bdd8d3;
+  border-radius: 999px;
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 0.9rem;
+  padding: 0.2rem 0.55rem;
   text-transform: uppercase;
 }
+
+.prompt,
+.response,
+.cloze-extra {
+  background: #ffffff;
+  border: 1px solid #dde7e5;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.prompt {
+  font-size: 1.08em;
+  font-weight: 650;
+}
+
+.response,
+.cloze-extra {
+  margin-top: 1rem;
+}
+
+hr#answer {
+  border: 0;
+  border-top: 2px solid #d8b45a;
+  margin: 1rem 0 0;
+}
+
+.card h1,
+.card h2,
+.card h3 {
+  color: #21423f;
+  line-height: 1.2;
+  margin: 0 0 0.65rem;
+}
+
+.card p {
+  margin: 0 0 0.75rem;
+}
+
+.card p:last-child,
+.card ul:last-child,
+.card ol:last-child {
+  margin-bottom: 0;
+}
+
+.card strong {
+  color: #174f74;
+}
+
+.card code {
+  background: #f2eee4;
+  border: 1px solid #ded2b7;
+  border-radius: 6px;
+  color: #65460b;
+  font-size: 0.9em;
+  padding: 0.05rem 0.25rem;
+}
+
+.card ul,
+.card ol {
+  margin: 0.4rem 0 0.75rem;
+  padding-left: 1.35rem;
+}
+
+.card li + li {
+  margin-top: 0.35rem;
+}
+
+.card blockquote {
+  border-left: 4px solid #d8b45a;
+  color: #39494f;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1rem;
+}
+
+.card .cloze {
+  background: #fff4cf;
+  border-radius: 6px;
+  color: #5f4400;
+  font-weight: 700;
+  padding: 0.05rem 0.25rem;
+}
+
+.source {
+  color: #57656b;
+  font-size: 0.75em;
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid #dde7e5;
+}
+
+.nightMode.card {
+  color: #e8efee;
+  background: #121718;
+}
+
+.nightMode .adhs-card,
+.nightMode .prompt,
+.nightMode .response,
+.nightMode .cloze-extra {
+  background: #1a2224;
+  border-color: #35474a;
+}
+
+.nightMode .tagline {
+  color: #c4e8e0;
+  background: #203735;
+  border-color: #3c625d;
+}
+
+.nightMode strong {
+  color: #9bd6f0;
+}
+
+.nightMode .source {
+  color: #aebcbd;
+  border-top-color: #35474a;
+}
 """
+
+BASIC_QFMT = """
+<main class="adhs-card">
+  <div class="tagline">ADHS Lernkarte</div>
+  <section class="prompt">{{Front}}</section>
+</main>
+""".strip()
+
+BASIC_AFMT = """
+<main class="adhs-card">
+  <div class="tagline">ADHS Lernkarte</div>
+  <section class="prompt">{{Front}}</section>
+  <hr id="answer">
+  <section class="response">{{Back}}</section>
+  {{#Source}}<footer class="source"><b>Quelle:</b> {{Source}}</footer>{{/Source}}
+</main>
+""".strip()
+
+REVERSE_QFMT = """
+<main class="adhs-card">
+  <div class="tagline">ADHS Lernkarte - Rueckseite</div>
+  <section class="prompt">{{Back}}</section>
+</main>
+""".strip()
+
+REVERSE_AFMT = """
+<main class="adhs-card">
+  <div class="tagline">ADHS Lernkarte - Rueckseite</div>
+  <section class="prompt">{{Back}}</section>
+  <hr id="answer">
+  <section class="response">{{Front}}</section>
+  {{#Source}}<footer class="source"><b>Quelle:</b> {{Source}}</footer>{{/Source}}
+</main>
+""".strip()
+
+CLOZE_QFMT = """
+<main class="adhs-card">
+  <div class="tagline">ADHS Cloze</div>
+  <section class="prompt">{{cloze:Text}}</section>
+</main>
+""".strip()
+
+CLOZE_AFMT = """
+<main class="adhs-card">
+  <div class="tagline">ADHS Cloze</div>
+  <section class="prompt">{{cloze:Text}}</section>
+  {{#Extra}}<hr id="answer"><section class="cloze-extra">{{Extra}}</section>{{/Extra}}
+  {{#Source}}<footer class="source"><b>Quelle:</b> {{Source}}</footer>{{/Source}}
+</main>
+""".strip()
 
 BASIC_MODEL = genanki.Model(
     230601001,
@@ -51,8 +226,8 @@ BASIC_MODEL = genanki.Model(
     templates=[
         {
             "name": "Card 1",
-            "qfmt": '<div class="tagline">ADHS Lernkarte</div>{{Front}}',
-            "afmt": '{{FrontSide}}<hr id="answer">{{Back}}{{#Source}}<div class="source"><b>Quelle:</b> {{Source}}</div>{{/Source}}',
+            "qfmt": BASIC_QFMT,
+            "afmt": BASIC_AFMT,
         }
     ],
     css=CSS,
@@ -65,13 +240,13 @@ REVERSE_MODEL = genanki.Model(
     templates=[
         {
             "name": "Forward",
-            "qfmt": '<div class="tagline">ADHS Lernkarte</div>{{Front}}',
-            "afmt": '{{FrontSide}}<hr id="answer">{{Back}}{{#Source}}<div class="source"><b>Quelle:</b> {{Source}}</div>{{/Source}}',
+            "qfmt": BASIC_QFMT,
+            "afmt": BASIC_AFMT,
         },
         {
             "name": "Reverse",
-            "qfmt": '<div class="tagline">ADHS Lernkarte · Rückseite</div>{{Back}}',
-            "afmt": '{{FrontSide}}<hr id="answer">{{Front}}{{#Source}}<div class="source"><b>Quelle:</b> {{Source}}</div>{{/Source}}',
+            "qfmt": REVERSE_QFMT,
+            "afmt": REVERSE_AFMT,
         },
     ],
     css=CSS,
@@ -84,8 +259,8 @@ CLOZE_MODEL = genanki.Model(
     templates=[
         {
             "name": "Cloze",
-            "qfmt": '<div class="tagline">ADHS Cloze</div>{{cloze:Text}}',
-            "afmt": '{{cloze:Text}}{{#Extra}}<hr id="answer">{{Extra}}{{/Extra}}{{#Source}}<div class="source"><b>Quelle:</b> {{Source}}</div>{{/Source}}',
+            "qfmt": CLOZE_QFMT,
+            "afmt": CLOZE_AFMT,
         }
     ],
     css=CSS,

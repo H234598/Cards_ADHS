@@ -2,7 +2,16 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from cards_adhs_builder.build_decks import CardError, build_decks, load_cards, main, slugify
+from cards_adhs_builder.build_decks import (
+    BASIC_MODEL,
+    CLOZE_MODEL,
+    REVERSE_MODEL,
+    CardError,
+    build_decks,
+    load_cards,
+    main,
+    slugify,
+)
 
 
 def write_sample(path: Path) -> None:
@@ -38,6 +47,17 @@ def test_load_cards_and_build_decks(tmp_path: Path) -> None:
 
     assert len(cards) == 2
     assert list(decks) == ["ADHS::Test"]
+
+
+def test_models_apply_pretty_theme_automatically() -> None:
+    for model in (BASIC_MODEL, REVERSE_MODEL, CLOZE_MODEL):
+        assert ".adhs-card" in model.css
+        assert ".prompt" in model.css
+        assert ".response" in model.css
+
+    assert 'class="prompt"' in BASIC_MODEL.templates[0]["qfmt"]
+    assert 'class="response"' in BASIC_MODEL.templates[0]["afmt"]
+    assert 'class="cloze-extra"' in CLOZE_MODEL.templates[0]["afmt"]
 
 
 def test_missing_source_fails(tmp_path: Path) -> None:

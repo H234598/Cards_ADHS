@@ -13,12 +13,20 @@ Bei jedem Push, Pull Request oder manuellem Start über `workflow_dispatch`:
 3. Tests ausführen
 4. Karten validieren
 5. `.apkg`-Decks bauen
-6. fertige Decks als GitHub-Actions-Artefakt hochladen
+6. APKG-Ausgaben auf Existenz und Mindestgröße prüfen
+7. fertige Decks als GitHub-Actions-Artefakt hochladen
 
 Erzeugt werden:
 
 - ein `.apkg` pro Deck
 - zusätzlich `Cards_ADHS_all_decks.apkg` mit allen Decks zusammen
+
+## Automatisches Kartendesign
+
+Die YAML-Dateien enthalten nur Inhalt. Markdown in `front`, `back`, `text` und `extra`
+wird automatisch in HTML umgewandelt und vom Builder mit einem gemeinsamen Anki-Theme
+gerendert. Dadurch bekommen neue Karten ohne zusätzliche HTML-Arbeit ein einheitliches
+Layout mit Frage-/Antwortflächen, Quellenbereich, Listen-, Code-, Zitat- und Cloze-Styling.
 
 ## Ordnerstruktur
 

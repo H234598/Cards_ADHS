@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -43,9 +43,26 @@ jobs:
       - name: Build Anki packages
         run: cards-adhs-build build --cards-dir cards --out-dir dist
 
+      - name: Verify APKG artifacts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          files = sorted(Path("dist").glob("*.apkg"))
+          if not files:
+              raise SystemExit("No .apkg files were produced.")
+
+          for path in files:
+              size = path.stat().st_size
+              if size < 1024:
+                  raise SystemExit(f"{path} is suspiciously small ({size} bytes).")
+              print(f"{path} ({size} bytes)")
+          PY
+
       - name: Upload APKG artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Cards_ADHS_apkg
           path: dist/*.apkg
           if-no-files-found: error
+          retention-days: 30
