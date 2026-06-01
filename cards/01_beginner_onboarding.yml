@@ -1,0 +1,28 @@
+deck: "ADHS::01 Beginner::Onboarding"
+tags: [adhs, beginner, onboarding]
+source: "NICE Guideline NG87: Attention deficit hyperactivity disorder: diagnosis and management; Faraone et al. 2021, World Federation of ADHD International Consensus Statement."
+cards:
+  - id: adhs-definition-kern
+    type: basic
+    front: |
+      Was ist der **Kern** von ADHS?
+    back: |
+      ADHS ist eine **neuroentwicklungsbezogene Störung** mit einem anhaltenden Muster aus
+      **Unaufmerksamkeit** und/oder **Hyperaktivität-Impulsivität**, das zu relevanten
+      Beeinträchtigungen führt.
+
+      Wichtig: ADHS wird **klinisch** diagnostiziert. Einzelne Fragebögen, Scores oder
+      Reaktionstests sind Hilfen, aber keine Diagnosemaschine.
+    tags: [diagnostik, grundlagen]
+
+  - id: screening-nicht-diagnose
+    type: basic
+    front: |
+      Warum ist ein ADHS-Screeningbogen allein keine Diagnose?
+    back: |
+      Ein Screeningbogen kann Hinweise liefern, aber er ersetzt keine strukturierte Diagnostik.
+      Für eine Diagnose braucht man typischerweise Symptomkriterien, Entwicklungsverlauf,
+      Beeinträchtigung, Differentialdiagnosen, Komorbiditäten und möglichst Fremd-/Akteninformationen.
+
+      Merksatz: **Screening sucht Verdacht; Diagnostik prüft Erklärung.**
+    tags: [diagnostik, screening]
