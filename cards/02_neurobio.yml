@@ -1,0 +1,25 @@
+deck: "ADHS::02 Neurobiologie::Grundlagen"
+tags: [adhs, neurobio]
+source: "Faraone et al. 2021, World Federation of ADHD International Consensus Statement; Cortese 2020, pharmacologic treatment reviews in ADHD."
+cards:
+  - id: kein-dopamin-maerchen
+    type: basic
+    front: |
+      Warum ist „ADHS = Dopaminmangel“ wissenschaftlich zu grob?
+    back: |
+      Weil ADHS nicht durch einen einzelnen Botenstoff erklärt wird. Besser ist ein Netzwerkmodell:
+      Aufmerksamkeit, Exekutivfunktionen, Motivation/Belohnung, Zeitverarbeitung und Emotionsregulation
+      hängen mit mehreren Hirnnetzwerken und neurochemischer Modulation zusammen.
+
+      Dopamin und Noradrenalin sind wichtig, aber **kein simples Tank-leer-Modell**.
+    tags: [dopamin, noradrenalin, netzwerke]
+
+  - id: pharmako-logik-cloze
+    type: cloze
+    text: |
+      ADHS-Medikamente können die Signalübertragung von {{c1::Dopamin und Noradrenalin}}
+      beeinflussen; ein Ansprechen auf Medikamente beweist aber {{c2::nicht automatisch eine einzelne Ursache}}.
+    extra: |
+      Klinisch relevant ist die Wirkung auf Symptome, Funktionsniveau und Nebenwirkungen — nicht eine
+      nachträgliche Monokausal-Erzählung.
+    tags: [medikation, neurochemie]
